@@ -10,6 +10,7 @@ public class TargetManager : MonoBehaviour
     [SerializeField] private float spawnAreaHeight = 5f; // Высота области спавна
     [SerializeField] private Text scoreText;            // Текст для отображения счётчика
     [SerializeField] private GameObject victoryPanel;    // Панель победы
+    [SerializeField] private Timer timer;               // Ссылка на Timer
 
     private int targetsSpawned = 0;  // Счетчик созданных мишеней
     private int targetsDestroyed = 0; // Счетчик уничтоженных мишеней
@@ -17,7 +18,7 @@ public class TargetManager : MonoBehaviour
     void Start()
     {
         victoryPanel.SetActive(false); // Скрываем панель победы при старте
-        SpawnTarget();  // Спавн первой мишени при старте игры
+        SpawnTarget();  // Спавн первой мишени при старте
         UpdateScore();  // Обновляем счётчик
     }
 
@@ -56,7 +57,9 @@ public class TargetManager : MonoBehaviour
     // Показать панель победы
     public void ShowVictory()
     {
-        victoryPanel.SetActive(true);
+        scoreText.text = " ";
+        victoryPanel.SetActive(true); // Показываем панель победы
+        timer.StopTimer(); // Останавливаем таймер
     }
 
     // Увеличить счётчик уничтоженных мишеней
