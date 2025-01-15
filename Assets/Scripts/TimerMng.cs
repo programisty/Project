@@ -29,7 +29,7 @@ public class Timer : MonoBehaviour
                 sec++;
             }
 
-            TimerText.text = min.ToString("D2") + " : " + sec.ToString("D2");
+            TimerText.text = min.ToString("D2") + ":" + sec.ToString("D2");
             curTime = TimerText.text;     
             yield return new WaitForSeconds(1);
         }
@@ -37,7 +37,7 @@ public class Timer : MonoBehaviour
 
     public void StopTimer()
     {
-        Time.text = "Время " + curTime;    
+        Time.text = "Time " + curTime;    
         StopAllCoroutines();    
         TimerText.text = " ";      
     }

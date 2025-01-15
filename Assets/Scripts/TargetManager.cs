@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI; // Для работы с UI
 
-public class TargetManager : MonoBehaviour
+public class TargetManager : Sounds
 {
     [SerializeField] private GameObject targetPrefab;  // Префаб мишени
     [SerializeField] private int totalTargets = 10;    // Общее количество мишеней
@@ -11,7 +11,6 @@ public class TargetManager : MonoBehaviour
     [SerializeField] private Text scoreText;            // Текст для отображения счётчика
     [SerializeField] private GameObject victoryPanel;    // Панель победы
     [SerializeField] private Timer timer;               // Ссылка на Timer
-
     private int targetsSpawned = 0;  // Счетчик созданных мишеней
     private int targetsDestroyed = 0; // Счетчик уничтоженных мишеней
 
@@ -19,7 +18,7 @@ public class TargetManager : MonoBehaviour
     {
         victoryPanel.SetActive(false); // Скрываем панель победы при старте
         SpawnTarget();  // Спавн первой мишени при старте
-        UpdateScore();  // Обновляем счётчик
+        PlaySound(sounds[0], loop:true, volume:3f);
     }
 
     // Функция для спавна новой мишени
@@ -51,12 +50,15 @@ public class TargetManager : MonoBehaviour
     // Обновление счётчика
     public void UpdateScore()
     {
-        scoreText.text = "Уничтожено мишеней: " + targetsDestroyed + "/" + totalTargets;
+        
+        scoreText.text = "Destroyed targets: " + targetsDestroyed + "/" + totalTargets;
     }
 
     // Показать панель победы
     public void ShowVictory()
     {
+        StopSound();
+        PlaySound(sounds[1], volume:0.8f);
         scoreText.text = " ";
         victoryPanel.SetActive(true); // Показываем панель победы
         timer.StopTimer(); // Останавливаем таймер
